@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+  <h1>Categories</h1>
+  <ul class="category-list">
+    {% for category in categories %}
+      <li>
+        <a href="{% url 'category_detail' category.id %}">{{ category.name }}</a>
+        {% if user.is_staff %}
+          <a href="{% url 'edit_category' category.id %}" class="button">Edit</a>
+          <a href="{% url 'delete_category' category.id %}" class="button">Delete</a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+  {% if user.is_staff %}
+    <a href="{% url 'add_category' %}" class="button">Add Category</a>
+    <p>{{ user.username }}</p>
+  {% endif %}
+{% endblock %}
+
